@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="core/template/baseTemplate"
+>
+<head>
+    <title layout:fragment="title">client | add</title>
+</head>
+<body>
+
+<div layout:fragment="content">
+    <!-- Card -->
+    <div class="block rounded-lg bg-white shadow-lg dark:bg-neutral-700 text-left">
+        <!-- Card body -->
+        <div class="p-6 w-1/2 mx-auto">
+            <form method="post" th:action="@{/client/save}">
+                <!-- Text input -->
+                <div class="mb-4 w-full">
+                    <label for="nomComplet">nom et prenom</label>
+                    <input class="bg-red-50 border border-red-500 text-red-900 placeholder-red-700 text-sm rounded-lg focus:ring-red-500 dark:bg-gray-700 focus:border-red-500 block w-full p-2.5 dark:text-red-500 dark:placeholder-red-500 dark:border-red-500"
+                           th:value="${clientCreateDto.nomComplet}"
+                           id="nomComplet" name="nomComplet"
+                           type="text"/>
+                    <p class="mt-2 text-sm text-green-600 dark:text-green-500"><span class="font-medium">Well done!</span> Some success message.</p>
+                    <p class="mt-2 text-sm text-red-600 dark:text-red-500"><span class="font-medium">Oh, snapp!</span> Some error message.</p>
+                </div>
+
+                <!-- Text input -->
+                <div class="mb-4 w-full">
+                    <label for="telephone">telephone</label>
+                    <input class="w-full block rounded-lg border dark:border-none dark:bg-neutral-600 py-[9px] px-3 pr-4 text-sm focus:border-blue-400 focus:ring-1 focus:ring-blue-400 focus:outline-none"
+                           th:value="${clientCreateDto.telephone}"
+                           id="telephone" name="telephone"
+                           type="text"/>
+                </div>
+
+                <!-- Text input -->
+                <div class="mb-4 w-full">
+                    <label for="quartier">quartier</label>
+                    <input class="w-full block rounded-lg border dark:border-none dark:bg-neutral-600 py-[9px] px-3 pr-4 text-sm focus:border-blue-400 focus:ring-1 focus:ring-blue-400 focus:outline-none"
+                           th:value="${clientCreateDto.quartier}"
+                           id="quartier" name="quartier"
+                           type="text"/>
+                </div>
+
+                <!-- Text input -->
+                <div class="mb-4 w-full">
+                    <label for="ville">ville</label>
+                    <input class="w-full block rounded-lg border dark:border-none dark:bg-neutral-600 py-[9px] px-3 pr-4 text-sm focus:border-blue-400 focus:ring-1 focus:ring-blue-400 focus:outline-none"
+                           th:value="${clientCreateDto.ville}"
+                           id="ville" name="ville"
+                           type="text"/>
+                </div>
+
+                <!-- Text input -->
+                <div class="mb-4 w-full">
+                    <label for="numVilla">numero villa</label>
+                    <input class="w-full block rounded-lg border dark:border-none dark:bg-neutral-600 py-[9px] px-3 pr-4 text-sm focus:border-blue-400 focus:ring-1 focus:ring-blue-400 focus:outline-none"
+                           th:value="${clientCreateDto.numVilla}"
+                           id="numVilla" name="numVilla"
+                           type="text"/>
+                </div>
+
+                <!-- Submit Button -->
+                <button class="mb-4 rounded-full bg-blue-500 text-neutral-50 shadow-[0_4px_9px_-4px_rgba(51,45,45,0.7)] hover:bg-blue-600 hover:shadow-[0_8px_9px_-4px_rgba(51,45,45,0.2),0_4px_18px_0_rgba(51,45,45,0.1)] focus:bg-blue-800 focus:shadow-[0_8px_9px_-4px_rgba(51,45,45,0.2),0_4px_18px_0_rgba(51,45,45,0.1)] active:bg-blue-700 active:shadow-[0_8px_9px_-4px_rgba(51,45,45,0.2),0_4px_18px_0_rgba(51,45,45,0.1)] px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal transition duration-150 ease-in-out focus:outline-none focus:ring-0"
+                        type="submit">enregistrer</button>
+            </form>
+        </div>
+
+    </div>
+    <!-- Card -->
+</div>
+
+</body>
+</html>

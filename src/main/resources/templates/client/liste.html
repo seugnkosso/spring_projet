@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="core/template/baseTemplate"
+>
+<head>
+    <title layout:fragment="title">clients</title>
+</head>
+<body>
+
+<div layout:fragment="content">
+    <!-- Card -->
+    <div class="block rounded-lg bg-white shadow-lg dark:bg-neutral-700 text-left">
+        <!-- Card body -->
+        <div class="p-6">
+            <div class="bg-gray-50 p-2 mb-2 ">
+                <div class="p-5">
+                    <h1 class="uppercase text-3xl bold">liste des clients</h1>
+                </div>
+                <div class="flex items-center ">
+                    <div class="flex-grow">
+                        <form class="max-w-md w-1/2">
+                            <label for="default-search" class="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">Search</label>
+                            <div class="relative flex items-center ">
+                                <div class="absolute left-1 flex items-center ps-3 pointer-events-none">
+                                    <svg aria-hidden="true" class="w-4 h-4 text-gray-500 dark:text-gray-400"
+                                         fill="none" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"/>
+                                    </svg>
+                                </div>
+                                <input
+                                        class="block w-full p-4 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                        id="default-search" name="keyword" placeholder="Search"
+                                        th:value="${keyword}"
+                                        type="search"/>
+                                <button class="text-white absolute right-2 end-2.5 bottom-2.5 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                                        type="submit">Search</button>
+                            </div>
+                        </form>
+                    </div>
+                    <div>
+                        <a class="inline-block p-0 mr-3 rounded-full bg-lime-500 text-neutral-50 shadow-[0_4px_9px_-4px_rgba(51,45,45,0.7)] hover:bg-lime-600 hover:shadow-[0_8px_9px_-4px_rgba(51,45,45,0.2),0_4px_18px_0_rgba(51,45,45,0.1)] focus:bg-lime-800 focus:shadow-[0_8px_9px_-4px_rgba(51,45,45,0.2),0_4px_18px_0_rgba(51,45,45,0.1)] active:bg-lime-700 active:shadow-[0_8px_9px_-4px_rgba(51,45,45,0.2),0_4px_18px_0_rgba(51,45,45,0.1)] px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal transition duration-150 ease-in-out focus:outline-none focus:ring-0"
+                           th:href="@{/client/form}"
+                           role="button">nouveau</a>
+                    </div>
+                </div>
+            </div>
+            <div class="relative overflow-x-auto shadow-md sm:rounded-lg  ">
+
+                <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+                    <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                    <tr>
+                        <th scope="col" class="px-6 py-3">
+                            Nom et Prenom
+                        </th>
+                        <th scope="col" class="px-6 py-3">
+                            Telephone
+                        </th>
+                        <th scope="col" class="px-6 py-3">
+                            Adresse
+                        </th>
+                        <th scope="col" class="px-6 py-3">
+                            <span class="sr-only">Edit</span>
+                        </th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="cl:${clients}" class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+                        <th th:text="${cl.nomComplet}" scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                        </th>
+                        <td th:text="${cl.telephone}" class="px-6 py-4">
+
+                        </td>
+                        <td th:text="${cl.quartier} +' | '+ ${cl.ville}+ ' | '+ ${cl.numVilla}" class="px-6 py-4">
+                        </td>
+                        <td class="px-6 py-4 text-right">
+                            <a th:href="@{/commandes/client/{id}(id=${cl.id})}">
+                                <button class="focus:outline-none text-white bg-yellow-400 hover:bg-yellow-500 focus:ring-4 focus:ring-yellow-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:focus:ring-yellow-900">Commandes</button>
+                            </a>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+                <nav class="flex items-center p-2 flex-column flex-wrap md:flex-row justify-between pt-4" aria-label="Table navigation">
+                    <span class="text-sm font-normal text-gray-500 dark:text-gray-400 mb-4 md:mb-0 block w-full md:inline md:w-auto">Showing <span class="font-semibold text-gray-900 dark:text-white" th:text="${size}"></span> of <span class="font-semibold text-gray-900 dark:text-white" th:text="${clientsTotal}"></span></span>
+                    <ul class="inline-flex -space-x-px rtl:space-x-reverse text-sm h-8">
+                        <li>
+                            <a      th:if="${currentPage!=0}"
+                                    th:href="@{/client(page=${currentPage - 1})}"
+                                    class="flex items-center justify-center px-3 h-8 ms-0 leading-tight text-gray-500 bg-white border border-gray-300 rounded-s-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">Previous</a>
+                        </li>
+                        <li th:each="item,index:${pages}">
+                            <a      th:href="@{/client(page=${index.index})}"
+                                    aria-current="page"
+                                    th:class="${index.index == currentPage ? 'flex items-center justify-center px-3 h-8 text-blue-600 border border-gray-300 bg-blue-50 hover:bg-blue-100 hover:text-blue-700 dark:border-gray-700 dark:bg-gray-700 dark:text-white' : 'flex items-center justify-center px-3 h-8 text-blue-600 border border-gray-300 hover:bg-blue-100 hover:text-blue-700 dark:border-gray-700 dark:bg-gray-700 dark:text-white'}"
+                                    th:text="${index.index + 1}"></a>
+                        </li>
+                        <li>
+                            <a
+                                    th:if="${currentPage!=nbrPage - 1}"
+                                    th:href="@{/client(page=${currentPage + 1})}"
+                                    class="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 rounded-e-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">Next</a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+
+    </div>
+    <!-- Card -->
+</div>
+
+</body>
+</html>
