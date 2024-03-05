@@ -16,7 +16,7 @@ import java.util.Date;
 import java.util.List;
 
 //@Component
-@Order(2)
+@Order(3)
 @RequiredArgsConstructor
 public class CommandeFixture implements CommandLineRunner {
     private final ClientRepository clientRepository;

@@ -1,9 +1,6 @@
 package com.spring.spring_project_ecom.data.entities;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -29,6 +26,9 @@ public class Article extends AbstractEntity{
     private Integer qteStock;
 
     private String photo;
+
+    @ManyToOne
+    private Categorie categorie;
 
     @OneToMany(mappedBy = "article")
     private List<LigneCommande> ligneCommande;

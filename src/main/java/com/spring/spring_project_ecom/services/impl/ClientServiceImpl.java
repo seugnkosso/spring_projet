@@ -25,4 +25,9 @@ public class ClientServiceImpl implements ClientService {
         client.setActive(true);
         clientRepository.save(client);
     }
+
+    @Override
+    public Client getClientByid(Long id) {
+        return clientRepository.findById(id).orElse(null);
+    }
 }

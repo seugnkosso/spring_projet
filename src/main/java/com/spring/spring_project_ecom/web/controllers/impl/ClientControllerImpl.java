@@ -6,14 +6,21 @@ import com.spring.spring_project_ecom.services.ClientService;
 import com.spring.spring_project_ecom.web.controllers.ClientController;
 import com.spring.spring_project_ecom.web.dto.request.ClientCreateRequestDto;
 import com.spring.spring_project_ecom.web.dto.response.ClientResponseDto;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 @Controller
 @RequiredArgsConstructor
@@ -45,9 +52,17 @@ public class ClientControllerImpl implements ClientController {
     }
 
     @Override
-    public String saveClient(ClientCreateRequestDto clientDto) {
-        clientService.addClient(clientDto);
-        return "redirect:/client/form ";
+    public String saveClient(@Valid ClientCreateRequestDto clientDto, BindingResult bindingResult, RedirectAttributes redirectAttributes) {
+
+        if (bindingResult.hasErrors()) {
+            Map<String, String> errors = new HashMap<>();
+            List<FieldError> fieldErrors = bindingResult.getFieldErrors();
+            fieldErrors.forEach(fieldError -> errors.put(fieldError.getField(),fieldError.getDefaultMessage()));
+            redirectAttributes.addFlashAttribute("errors",errors);
+        }else{
+            clientService.addClient(clientDto);
+        }
+        return "redirect:/client/form";
     }
 
     @Override

@@ -9,4 +9,6 @@ public interface ClientService {
     Page<Client> getAllClientwithpaginateAndFilter(String keyword, Pageable pageable);
 
     void addClient(ClientCreateRequestDto dto);
+
+    Client getClientByid(Long id);
 }

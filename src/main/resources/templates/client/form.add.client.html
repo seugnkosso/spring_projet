@@ -13,26 +13,33 @@
     <!-- Card -->
     <div class="block rounded-lg bg-white shadow-lg dark:bg-neutral-700 text-left">
         <!-- Card body -->
+        <div class=" bg-gray-50">
+            <h1 class="py-10 pl-5 uppercase text-3xl bold">enregistrement client</h1>
+        </div>
         <div class="p-6 w-1/2 mx-auto">
             <form method="post" th:action="@{/client/save}">
                 <!-- Text input -->
                 <div class="mb-4 w-full">
                     <label for="nomComplet">nom et prenom</label>
-                    <input class="bg-red-50 border border-red-500 text-red-900 placeholder-red-700 text-sm rounded-lg focus:ring-red-500 dark:bg-gray-700 focus:border-red-500 block w-full p-2.5 dark:text-red-500 dark:placeholder-red-500 dark:border-red-500"
+                    <input th:class="${errors != null && errors.containsKey('nomComplet') ? 'bg-red-50 border border-red-500 text-red-900 placeholder-red-700 text-sm rounded-lg focus:ring-red-500 dark:bg-gray-700 focus:border-red-500 block w-full p-2.5 dark:text-red-500 dark:placeholder-red-500 dark:border-red-500' : 'w-full block rounded-lg border dark:border-none dark:bg-neutral-600 py-[9px] px-3 pr-4 text-sm focus:border-blue-400 focus:ring-1 focus:ring-blue-400 focus:outline-none' }"
                            th:value="${clientCreateDto.nomComplet}"
                            id="nomComplet" name="nomComplet"
                            type="text"/>
-                    <p class="mt-2 text-sm text-green-600 dark:text-green-500"><span class="font-medium">Well done!</span> Some success message.</p>
-                    <p class="mt-2 text-sm text-red-600 dark:text-red-500"><span class="font-medium">Oh, snapp!</span> Some error message.</p>
+                        <p class="mt-2 text-sm text-red-600 dark:text-red-500"
+                           th:if="${errors != null && errors.containsKey('nomComplet')}"
+                           th:text="${errors.get('nomComplet')}"></p>
                 </div>
 
                 <!-- Text input -->
                 <div class="mb-4 w-full">
                     <label for="telephone">telephone</label>
-                    <input class="w-full block rounded-lg border dark:border-none dark:bg-neutral-600 py-[9px] px-3 pr-4 text-sm focus:border-blue-400 focus:ring-1 focus:ring-blue-400 focus:outline-none"
+                    <input th:class="${errors != null && errors.containsKey('telephone') ? 'bg-red-50 border border-red-500 text-red-900 placeholder-red-700 text-sm rounded-lg focus:ring-red-500 dark:bg-gray-700 focus:border-red-500 block w-full p-2.5 dark:text-red-500 dark:placeholder-red-500 dark:border-red-500' : 'w-full block rounded-lg border dark:border-none dark:bg-neutral-600 py-[9px] px-3 pr-4 text-sm focus:border-blue-400 focus:ring-1 focus:ring-blue-400 focus:outline-none' }"
                            th:value="${clientCreateDto.telephone}"
                            id="telephone" name="telephone"
                            type="text"/>
+                    <p class="mt-2 text-sm text-red-600 dark:text-red-500"
+                       th:if="${errors != null && errors.containsKey('telephone')}"
+                       th:text="${errors.get('telephone')}"></p>
                 </div>
 
                 <!-- Text input -->

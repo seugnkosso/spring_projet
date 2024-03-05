@@ -2,9 +2,11 @@ package com.spring.spring_project_ecom.web.controllers;
 
 import com.spring.spring_project_ecom.web.dto.request.ClientCreateRequestDto;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 public interface ClientController {
     @GetMapping("/")
@@ -19,6 +21,6 @@ public interface ClientController {
     String showForm(Model model);
 
     @PostMapping("/client/save")
-    String saveClient(ClientCreateRequestDto clientDto);
+    String saveClient(ClientCreateRequestDto clientDto, BindingResult bindingResult, RedirectAttributes redirectAttributes);
 
 }
