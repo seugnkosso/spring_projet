@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 public interface CommandeController {
 
-    @GetMapping("/commandes")
+    @GetMapping("/admin/commandes")
     String commandes(Model model,
                         @RequestParam(defaultValue = "0") int page,
                         @RequestParam(defaultValue = "5") int size);
@@ -20,8 +20,11 @@ public interface CommandeController {
                         @RequestParam(defaultValue = "5") int size,
                         @RequestParam(defaultValue = "0") int page);
 
-    @GetMapping("/commande/form/{id}")
+    @GetMapping("/admin/commande/form/{id}")
     String formCommande(Model model,
                         @PathVariable Long id,
                         @ModelAttribute PanierDto panier);
+
+    @GetMapping("/admin/commande/save")
+    String saveCommande(@ModelAttribute("panier") PanierDto panier);
 }

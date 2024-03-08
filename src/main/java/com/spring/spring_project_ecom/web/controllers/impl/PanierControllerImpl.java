@@ -25,10 +25,8 @@ public class PanierControllerImpl implements PanierController {
         if (article != null) {
             articleForm.setPrix(articleForm.getPrix()==null ? article.getNouveauPrix() : articleForm.getPrix());
             articleForm.setLibelle(article.getLibelle());
-//            panier.getArticlesPanier().add(articleForm);
             panier.addArticlePanier(articleForm);
-//            panier.setTotal(panier.getArticlesPanier().stream().);
         }
-        return "redirect:/commande/form/"+panier.getClient().getId();
+        return "redirect:/admin/commande/form/"+panier.getClient().getId();
     }
 }

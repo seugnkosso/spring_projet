@@ -14,8 +14,8 @@ import org.springframework.stereotype.Component;
 import java.util.ArrayList;
 import java.util.List;
 
-//@Component
-@Order(2)
+@Component
+@Order(4)
 @RequiredArgsConstructor
 public class CategorieFixture implements CommandLineRunner {
     private final CategorieRepository categorieRepository;

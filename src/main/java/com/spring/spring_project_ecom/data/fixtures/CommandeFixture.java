@@ -15,8 +15,8 @@ import org.springframework.stereotype.Component;
 import java.util.Date;
 import java.util.List;
 
-//@Component
-@Order(3)
+@Component
+@Order(4)
 @RequiredArgsConstructor
 public class CommandeFixture implements CommandLineRunner {
     private final ClientRepository clientRepository;

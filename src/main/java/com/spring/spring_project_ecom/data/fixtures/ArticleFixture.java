@@ -14,8 +14,8 @@ import org.springframework.stereotype.Component;
 
 import java.util.Optional;
 
-//@Component
-@Order(4)
+@Component
+@Order(5)
 @RequiredArgsConstructor
 public class ArticleFixture implements CommandLineRunner {
     private final ArticleRepository articleRepository;

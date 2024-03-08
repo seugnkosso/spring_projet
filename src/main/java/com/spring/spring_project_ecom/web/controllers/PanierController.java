@@ -8,6 +8,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
 public interface PanierController {
-    @PostMapping("/panier/add")
+    @PostMapping("/admin/panier/add")
     String addPanier(Model model, @Valid ArticlePanierDto articleForm, @ModelAttribute("panier") PanierDto panier);
 }

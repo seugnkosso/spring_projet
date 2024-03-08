@@ -18,8 +18,10 @@
         </div>
         <div class="p-6 w-full mx-auto ">
             <form class="p-5" method="post"
-                  th:action="@{/panier/add}"
+                  th:action="@{/admin/panier/add}"
                   th:object="${articleForm}">
+
+
 <!--                INFO CLIENT ON-->
                 <div class="block rounded-lg bg-white shadow-lg dark:bg-neutral-700 text-left">
 
@@ -53,6 +55,7 @@
 
                 </div>
 <!--                INFO CLIENT OFF-->
+
 
 <!--                CHOIX PRODUIT ON -->
                 <div class="block  mt-2 rounded-lg bg-white shadow-lg dark:bg-neutral-700 text-left">
@@ -92,6 +95,7 @@
 
                 </div>
 <!--                CHOIX PRODUIT OFF -->
+
 
 <!--                PANIER ON -->
                 <div class="block mt-2 rounded-lg bg-white shadow-lg dark:bg-neutral-700 text-left">
@@ -140,8 +144,8 @@
                                 <p class=" rounded-2xl p-5 bg-cyan-500 text-5xl inline-block">total :<span class="text-white" th:text="${panier.total} + ' fr'"> </span></p>
                             </div>
                             <div class="">
-                                <button class=" ext-black float-right rounded bg-cyan-500  shadow-[0_4px_9px_-4px_rgba(51,45,45,0.7)] hover:bg-cyan-600 hover:shadow-[0_8px_9px_-4px_rgba(51,45,45,0.2),0_4px_18px_0_rgba(51,45,45,0.1)] focus:bg-cyan-800 focus:shadow-[0_8px_9px_-4px_rgba(51,45,45,0.2),0_4px_18px_0_rgba(51,45,45,0.1)] active:bg-cyan-700 active:shadow-[0_8px_9px_-4px_rgba(51,45,45,0.2),0_4px_18px_0_rgba(51,45,45,0.1)] px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal transition duration-150 ease-in-out focus:outline-none focus:ring-0"
-                                        type="submit">valider la commande</button>
+                                <a th:href="@{/commande/save}" class=" ext-black float-right rounded bg-cyan-500  shadow-[0_4px_9px_-4px_rgba(51,45,45,0.7)] hover:bg-cyan-600 hover:shadow-[0_8px_9px_-4px_rgba(51,45,45,0.2),0_4px_18px_0_rgba(51,45,45,0.1)] focus:bg-cyan-800 focus:shadow-[0_8px_9px_-4px_rgba(51,45,45,0.2),0_4px_18px_0_rgba(51,45,45,0.1)] active:bg-cyan-700 active:shadow-[0_8px_9px_-4px_rgba(51,45,45,0.2),0_4px_18px_0_rgba(51,45,45,0.1)] px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal transition duration-150 ease-in-out focus:outline-none focus:ring-0"
+                                        type="submit">valider la commande</a>
                             </div>
                         </div>
                         <!--                TOTAL ET BUTTON OFF-->

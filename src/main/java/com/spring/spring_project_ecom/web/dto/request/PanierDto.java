@@ -33,4 +33,9 @@ public class PanierDto {
             total+=articlePanierDto.getMontant();
         }
     }
+    public void init (){
+        articlesPanier.clear();
+        total = 0.0;
+        client = null;
+    }
 }

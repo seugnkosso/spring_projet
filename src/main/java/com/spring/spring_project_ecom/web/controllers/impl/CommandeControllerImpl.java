@@ -42,6 +42,7 @@ public class CommandeControllerImpl implements CommandeController {
         model.addAttribute("clientId",null);
         return getString(model, page, commandesDto);
     }
+
     @Override
     public String commandesClient(Model model,
                                   @PathVariable Long id,
@@ -67,6 +68,14 @@ public class CommandeControllerImpl implements CommandeController {
         return "commande/form.add.commande";
     }
 
+    @Override
+    public String saveCommande(@ModelAttribute("panier") PanierDto panier) {
+        commandeService.saveCommande(panier);
+        Long id = panier.getClient().getId();
+        panier.init();
+        return "redirect:/admin/commande/form/"+id;
+    }
+
     private String getString(Model model, @RequestParam(defaultValue = "0") int page, Page<CommandeResponseDto> commandesDto) {
         model.addAttribute("commandesTotal",commandesDto.getTotalElements());
         model.addAttribute("size",commandesDto.getContent().stream().count());
@@ -76,12 +85,4 @@ public class CommandeControllerImpl implements CommandeController {
         return "commande/liste";
     }
 
-    @ModelAttribute("panier")
-    public PanierDto panier(){
-        return new PanierDto(
-                new ArrayList<>(),
-                0.0,
-                null
-        );
-    }
 }

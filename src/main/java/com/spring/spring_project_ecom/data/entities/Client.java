@@ -1,5 +1,6 @@
 package com.spring.spring_project_ecom.data.entities;
 
+import com.spring.spring_project_ecom.security.data.entities.AppUser;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -12,7 +13,8 @@ import java.util.List;
 @NoArgsConstructor
 @Data
 @Builder
-public class Client extends AbstractEntity{
+@DiscriminatorValue("client")
+public class Client extends AppUser {
 
     private String nomComplet;
     private String telephone;
