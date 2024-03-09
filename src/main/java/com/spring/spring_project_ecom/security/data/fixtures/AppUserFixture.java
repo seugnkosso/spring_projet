@@ -11,7 +11,7 @@ import org.springframework.stereotype.Component;
 import java.util.ArrayList;
 import java.util.List;
 
-@Component
+//@Component
 @Order(2)
 @RequiredArgsConstructor
 public class AppUserFixture implements CommandLineRunner {

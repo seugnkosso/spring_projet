@@ -30,7 +30,7 @@ public class SecurityServiceImpl implements SecurityService, UserDetailsService 
     @Override
     public AppUser saveUser(String username, String password) {
         AppUser user = appUserRepositories.findByUserName(username);
-        if (user != null) {throw new RuntimeException("l'utilisateur n'existe pas");}
+        if (user != null) {throw new RuntimeException("l'utilisateur existe deja");}
         user = new AppUser(username,passwordEncoder.encode(password),null);
         return appUserRepositories.save(user);
     }
@@ -55,7 +55,12 @@ public class SecurityServiceImpl implements SecurityService, UserDetailsService 
 
     @Override
     public void removeRoleToUser(String userName, String roleName) {
-
+        AppRole role = appRoleRepositories.findByRoleName(roleName);
+        if(role == null){throw new RuntimeException("role not found");}
+        AppUser user = appUserRepositories.findByUserName(userName);
+        if (user == null) {throw new RuntimeException("user not found");}
+        user.getRoles().remove(role);
+        appUserRepositories.save(user);
     }
 
     @Override
