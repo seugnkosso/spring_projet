@@ -16,7 +16,6 @@ import java.util.List;
 public class AppRole extends AbstractEntity {
     @Column(nullable = false,unique = true)
     private String roleName;
-
     @ManyToMany(fetch = FetchType.LAZY,mappedBy = "roles")
     List<AppUser> users;
 }
