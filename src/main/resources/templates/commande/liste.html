@@ -3,6 +3,7 @@
       xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="core/template/baseTemplate"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity6"
 >
 <head>
     <meta charset="UTF-8">
@@ -43,17 +44,20 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <tr th:each="cmd:${commandesDto}" class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
-                        <th th:text="${cmd.dateComd} +' | '+ ${cmd.ville}+ ' | '+ ${cmd.numVilla}" scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                    <tr th:each="cmd:${commandesDto}"
+                        class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+                        <th th:text="${cmd.dateComd}" scope="row"
+                            class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                         </th>
-                        <td th:text="${cmd.quartier} +' | '+ ${cmd.ville}+ ' | '+ ${cmd.numVilla}" scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                        <td th:text="${cmd.quartier} +' | '+ ${cmd.ville}+ ' | '+ ${cmd.numVilla}" scope="row"
+                            class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                         </td>
                         <td th:text="${cmd.montant}" class="px-6 py-4">
                         </td>
                         <td th:text="${cmd.etat}" class="px-6 py-4">
                         </td>
                         <td class="px-6 py-4 text-right">
-                            <a>
+                            <a sec:authorize="hasAuthority('Admin')">
                                 <button class="focus:outline-none text-white bg-yellow-400 hover:bg-yellow-500 focus:ring-4 focus:ring-yellow-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:focus:ring-yellow-900"
                                         th:text="${cmd.etatSuivant}"></button>
                             </a>
@@ -61,8 +65,12 @@
                     </tr>
                     </tbody>
                 </table>
-                <nav class="flex items-center p-2 flex-column flex-wrap md:flex-row justify-between pt-4" aria-label="Table navigation">
-                    <span class="text-sm font-normal text-gray-500 dark:text-gray-400 mb-4 md:mb-0 block w-full md:inline md:w-auto">Showing <span class="font-semibold text-gray-900 dark:text-white" th:text="${size}"></span> of <span class="font-semibold text-gray-900 dark:text-white" th:text="${commandesTotal}"></span></span>
+                <nav class="flex items-center p-2 flex-column flex-wrap md:flex-row justify-between pt-4"
+                     aria-label="Table navigation">
+                    <span class="text-sm font-normal text-gray-500 dark:text-gray-400 mb-4 md:mb-0 block w-full md:inline md:w-auto">Showing <span
+                            class="font-semibold text-gray-900 dark:text-white" th:text="${size}"></span> of <span
+                            class="font-semibold text-gray-900 dark:text-white"
+                            th:text="${commandesTotal}"></span></span>
                     <ul class="inline-flex -space-x-px rtl:space-x-reverse text-sm h-8" th:if="${clientId != null}">
                         <li>
                             <a
@@ -71,10 +79,10 @@
                                     class="flex items-center justify-center px-3 h-8 ms-0 leading-tight text-gray-500 bg-white border border-gray-300 rounded-s-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">Previous</a>
                         </li>
                         <li th:each="item,index:${pages}">
-                            <a      th:href="@{/commandes/client/{id}(id=${clientId},page=${index.index})}"
-                                    aria-current="page"
-                                    th:class="${index.index == currentPage ? 'flex items-center justify-center px-3 h-8 text-blue-600 border border-gray-300 bg-blue-50 hover:bg-blue-100 hover:text-blue-700 dark:border-gray-700 dark:bg-gray-700 dark:text-white' : 'flex items-center justify-center px-3 h-8 text-blue-600 border border-gray-300 hover:bg-blue-100 hover:text-blue-700 dark:border-gray-700 dark:bg-gray-700 dark:text-white'}"
-                                    th:text="${index.index + 1}"></a>
+                            <a th:href="@{/commandes/client/{id}(id=${clientId},page=${index.index})}"
+                               aria-current="page"
+                               th:class="${index.index == currentPage ? 'flex items-center justify-center px-3 h-8 text-blue-600 border border-gray-300 bg-blue-50 hover:bg-blue-100 hover:text-blue-700 dark:border-gray-700 dark:bg-gray-700 dark:text-white' : 'flex items-center justify-center px-3 h-8 text-blue-600 border border-gray-300 hover:bg-blue-100 hover:text-blue-700 dark:border-gray-700 dark:bg-gray-700 dark:text-white'}"
+                               th:text="${index.index + 1}"></a>
                         </li>
                         <li>
                             <a
@@ -85,15 +93,15 @@
                     </ul>
                     <ul th:if="${clientId == null}" class="inline-flex -space-x-px rtl:space-x-reverse text-sm h-8">
                         <li>
-                            <a      th:if="${currentPage!=0}"
-                                    th:href="@{/admin/commandes(page=${currentPage - 1})}"
-                                    class="flex items-center justify-center px-3 h-8 ms-0 leading-tight text-gray-500 bg-white border border-gray-300 rounded-s-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">Previous</a>
+                            <a th:if="${currentPage!=0}"
+                               th:href="@{/admin/commandes(page=${currentPage - 1})}"
+                               class="flex items-center justify-center px-3 h-8 ms-0 leading-tight text-gray-500 bg-white border border-gray-300 rounded-s-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">Previous</a>
                         </li>
                         <li th:each="item,index:${pages}">
-                            <a      th:href="@{/admin/commandes(page=${index.index})}"
-                                    aria-current="page"
-                                    th:class="${index.index == currentPage ? 'flex items-center justify-center px-3 h-8 text-blue-600 border border-gray-300 bg-blue-50 hover:bg-blue-100 hover:text-blue-700 dark:border-gray-700 dark:bg-gray-700 dark:text-white' : 'flex items-center justify-center px-3 h-8 text-blue-600 border border-gray-300 hover:bg-blue-100 hover:text-blue-700 dark:border-gray-700 dark:bg-gray-700 dark:text-white'}"
-                                    th:text="${index.index + 1}"></a>
+                            <a th:href="@{/admin/commandes(page=${index.index})}"
+                               aria-current="page"
+                               th:class="${index.index == currentPage ? 'flex items-center justify-center px-3 h-8 text-blue-600 border border-gray-300 bg-blue-50 hover:bg-blue-100 hover:text-blue-700 dark:border-gray-700 dark:bg-gray-700 dark:text-white' : 'flex items-center justify-center px-3 h-8 text-blue-600 border border-gray-300 hover:bg-blue-100 hover:text-blue-700 dark:border-gray-700 dark:bg-gray-700 dark:text-white'}"
+                               th:text="${index.index + 1}"></a>
                         </li>
                         <li>
                             <a

@@ -10,10 +10,8 @@ import lombok.NoArgsConstructor;
 @Data
 @MappedSuperclass
 public class AbstractEntity {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
     private Boolean active = true;
 }

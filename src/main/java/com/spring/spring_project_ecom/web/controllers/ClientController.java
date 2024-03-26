@@ -13,12 +13,13 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 public interface ClientController {
     @GetMapping("/")
     String index();
+
     @GetMapping("/admin/client")
     String listeClient(Model model,
-                        @RequestParam(defaultValue = "0") int page,
-                        @RequestParam(defaultValue = "5") int size,
-                        @RequestParam(defaultValue = "") String keyword,
-                        @ModelAttribute("panier") PanierDto panier);
+                       @RequestParam(defaultValue = "0") int page,
+                       @RequestParam(defaultValue = "5") int size,
+                       @RequestParam(defaultValue = "") String keyword,
+                       @ModelAttribute("panier") PanierDto panier);
 
     @GetMapping("/admin/client/form")
     String showForm(Model model);

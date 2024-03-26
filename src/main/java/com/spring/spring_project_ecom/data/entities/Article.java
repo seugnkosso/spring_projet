@@ -16,7 +16,6 @@ public class Article extends AbstractEntity{
 
     @Column(unique = true,length = 50, nullable = false)
     private String libelle;
-
     private Double ancienPrix;
 
     private Double nouveauPrix;
@@ -26,6 +25,7 @@ public class Article extends AbstractEntity{
     private Integer qteStock;
 
     private String photo;
+
 
     @ManyToOne
     private Categorie categorie;

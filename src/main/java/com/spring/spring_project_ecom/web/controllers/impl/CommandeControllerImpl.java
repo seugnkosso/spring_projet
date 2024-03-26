@@ -37,10 +37,8 @@ public class CommandeControllerImpl implements CommandeController {
                             @RequestParam(defaultValue = "5") int size,
                             @RequestParam(defaultValue = "0") int page) {
         Page<Commande> commandes = commandeService.getAllCommandeWhithpaginate(PageRequest.of(page,size));
-        Page<CommandeResponseDto> commandesDto = commandes.map(CommandeResponseDto::toDto);
-        model.addAttribute("commandesDto",commandesDto.getContent());
         model.addAttribute("clientId",null);
-        return getString(model, page, commandesDto);
+        return getPageCommandes(model, page, commandes);
     }
 
     @Override
@@ -49,10 +47,18 @@ public class CommandeControllerImpl implements CommandeController {
                                   @RequestParam(defaultValue = "5") int size,
                                   @RequestParam(defaultValue = "0") int page) {
         Page<Commande> commandes = commandeService.getCommandesByClientWithpaginate(id, PageRequest.of(page,size));
+        model.addAttribute("clientId",id);
+        return getPageCommandes(model, page, commandes);
+    }
+    private String getPageCommandes(Model model, @RequestParam(defaultValue = "0") int page, Page<Commande> commandes) {
         Page<CommandeResponseDto> commandesDto = commandes.map(CommandeResponseDto::toDto);
         model.addAttribute("commandesDto",commandesDto.getContent());
-        model.addAttribute("clientId",id);
-        return getString(model, page, commandesDto);
+        model.addAttribute("commandesTotal",commandesDto.getTotalElements());
+        model.addAttribute("size", (long) commandesDto.getContent().size());
+        model.addAttribute("pages",new int[commandesDto.getTotalPages()]);
+        model.addAttribute("nbrPage",commandesDto.getTotalPages());
+        model.addAttribute("currentPage",page);
+        return "commande/liste";
     }
 
     @Override
@@ -76,13 +82,6 @@ public class CommandeControllerImpl implements CommandeController {
         return "redirect:/admin/commande/form/"+id;
     }
 
-    private String getString(Model model, @RequestParam(defaultValue = "0") int page, Page<CommandeResponseDto> commandesDto) {
-        model.addAttribute("commandesTotal",commandesDto.getTotalElements());
-        model.addAttribute("size",commandesDto.getContent().stream().count());
-        model.addAttribute("pages",new int[commandesDto.getTotalPages()]);
-        model.addAttribute("nbrPage",commandesDto.getTotalPages());
-        model.addAttribute("currentPage",page);
-        return "commande/liste";
-    }
+
 
 }

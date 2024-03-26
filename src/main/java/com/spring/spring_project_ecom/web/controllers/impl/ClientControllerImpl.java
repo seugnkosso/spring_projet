@@ -43,7 +43,7 @@ public class ClientControllerImpl implements ClientController {
         Page<ClientResponseDto> clientDto = clients.map(ClientResponseDto::toDto);
         model.addAttribute("clients",clientDto.getContent());
         model.addAttribute("clientsTotal",clientDto.getTotalElements());
-        model.addAttribute("size",clientDto.getContent().stream().count());
+        model.addAttribute("size", (long) clientDto.getContent().size());
         model.addAttribute("pages",new int[clientDto.getTotalPages()]);
         model.addAttribute("nbrPage",clientDto.getTotalPages());
         model.addAttribute("currentPage",page);
@@ -62,6 +62,7 @@ public class ClientControllerImpl implements ClientController {
     public String saveClient(@Valid ClientCreateRequestDto clientDto, BindingResult bindingResult, RedirectAttributes redirectAttributes) {
 
         if (bindingResult.hasErrors()) {
+            System.out.println(bindingResult);
             Map<String, String> errors = new HashMap<>();
             List<FieldError> fieldErrors = bindingResult.getFieldErrors();
             fieldErrors.forEach(fieldError -> errors.put(fieldError.getField(),fieldError.getDefaultMessage()));

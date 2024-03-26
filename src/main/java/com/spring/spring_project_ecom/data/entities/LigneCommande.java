@@ -14,16 +14,11 @@ import lombok.NoArgsConstructor;
 @Data
 @Table(name = "ligne_commandes")
 public class LigneCommande extends AbstractEntity{
-
     private Double montant;
-
     private Double quantite;
-
     private Double prix;
-
     @ManyToOne
     private Article article;
-
     @ManyToOne
     private Commande commande;
 

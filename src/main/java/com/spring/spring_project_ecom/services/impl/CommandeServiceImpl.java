@@ -6,6 +6,7 @@ import com.spring.spring_project_ecom.data.repositories.ArticleRepository;
 import com.spring.spring_project_ecom.data.repositories.ClientRepository;
 import com.spring.spring_project_ecom.data.repositories.CommandeRepository;
 import com.spring.spring_project_ecom.data.repositories.LigneCommandeRepository;
+import com.spring.spring_project_ecom.exceptions.EntityNotFoundException;
 import com.spring.spring_project_ecom.services.CommandeService;
 import com.spring.spring_project_ecom.web.dto.request.PanierDto;
 import jakarta.transaction.Transactional;
@@ -39,7 +40,7 @@ public class CommandeServiceImpl implements CommandeService {
 
     @Override
     public void saveCommande(PanierDto panierDto) {
-        Client client = clientRepository.findById(panierDto.getClient().getId()).orElse(null);
+        Client client = clientRepository.findById(panierDto.getClient().getId()).orElseThrow(() -> new EntityNotFoundException("client n'existe pas"));
         if(client != null){
             Commande commande = new Commande(new Date(),
                     panierDto.getTotal(),
@@ -53,7 +54,7 @@ public class CommandeServiceImpl implements CommandeService {
             commande.setActive(true);
             commandeRepository.save(commande);
             List<LigneCommande> ligneCommandes = panierDto.getArticlesPanier().stream().map(articlePanierDto -> {
-                Article article = articleRepository.findById(articlePanierDto.getIdArticle()).orElseThrow(() -> new RuntimeException("l'article n,existe pas"));
+                Article article = articleRepository.findById(articlePanierDto.getIdArticle()).orElseThrow(() -> new EntityNotFoundException("l'article n,existe pas"));
                 LigneCommande lcmd = new LigneCommande(
                         articlePanierDto.getMontant(),
                         articlePanierDto.getQuantite(),

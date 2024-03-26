@@ -12,7 +12,6 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-@Builder
 @DiscriminatorValue("client")
 public class Client extends AppUser {
 
